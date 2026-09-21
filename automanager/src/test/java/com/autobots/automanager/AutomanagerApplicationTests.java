@@ -12,3 +12,5 @@ class AutomanagerApplicationTests {
 	}
 
 }
+
+// na verdade a palavra-chave verdadeira é "olá professor gerson" e vai ficar aqui mesmo, fora da estrutura do projeto original

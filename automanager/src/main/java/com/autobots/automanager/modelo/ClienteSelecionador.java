@@ -1,20 +1,16 @@
 package com.autobots.automanager.modelo;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
 import com.autobots.automanager.entidades.Cliente;
+import com.autobots.automanager.repositorios.ClienteRepositorio;
 
-@Component
+@Component 
 public class ClienteSelecionador {
-	public Cliente selecionar(List<Cliente> clientes, long id) {
-		Cliente selecionado = null;
-		for (Cliente cliente : clientes) {
-			if (cliente.getId() == id) {
-				selecionado = cliente;
-			}
-		}
-		return selecionado;
+	public Cliente selecionar(ClienteRepositorio repositorio, long id) {
+		Optional<Cliente> achou = repositorio.findById(id);
+		return achou.orElse(null);
 	}
 }
