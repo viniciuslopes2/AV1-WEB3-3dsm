@@ -86,3 +86,33 @@ Com o projeto rodando, use o Insomnia, Postman ou outra ferramenta de sua prefer
 | DELETE | `/endereco/excluir` |
 
 Nos métodos `PUT` e `DELETE`, o corpo da requisição precisa incluir o `id` do registro que será atualizado ou excluído.
+
+## Erros comuns e troubleshooting
+
+### "Port 8080 was already in use"
+
+Alguma outra aplicação (às vezes uma instância anterior do próprio projeto que não fechou direito) já está usando a porta 8080. Feche o processo antigo ou finalize o terminal onde ele ficou rodando. Se preferir, dá pra rodar em outra porta passando `--server.port=8081` no comando do Maven.
+
+### `mvnw: Permission denied` no Linux/Mac
+
+O arquivo `mvnw` precisa de permissão de execução. Basta rodar `chmod +x mvnw` na pasta `automanager` antes de tentar de novo.
+
+### Erro de versão do Java (`invalid target release` ou parecido)
+
+O projeto usa Java 17. Se aparecer erro de versão ao compilar, confira com `java -version` se essa é a versão configurada como padrão (ou pelo menos a que o VS Code/terminal está enxergando).
+
+### Os dados somem toda vez que reinicio a aplicação
+
+Isso é esperado. O banco usado é o H2 em memória, então tudo que foi cadastrado é apagado quando a aplicação para. Não é um bug, é só a configuração atual do projeto (não usa banco persistente em disco).
+
+### Erro 400/500 ao fazer PUT ou DELETE
+
+Geralmente é porque o `id` não foi enviado no corpo da requisição, ou foi enviado um `id` que não existe no banco. Confira se o JSON enviado tem o campo `id` preenchido com um valor válido.
+
+### Lombok não funciona / getters e setters não são reconhecidos na IDE
+
+Se o VS Code ou outra IDE reclamar de métodos como `getNome()` ou `setNome()` que não existem no código, é porque o plugin do Lombok não está instalado/habilitado na IDE. No VS Code, instale a extensão "Lombok Annotations Support" e reinicie o editor.
+
+### A aplicação não sobe e não aparece nenhum erro claro
+
+Vale rodar pelo terminal (opção 2 do "Como rodar o projeto") mesmo que normalmente você use o Spring Boot Dashboard, porque o log completo do erro aparece mais fácil de ler no terminal do que na aba de output do VS Code.
